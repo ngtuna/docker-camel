@@ -1,1 +1,1 @@
-Apache 2.4 & PHP 5.6 image
+`php5.6-apache2.4`
