@@ -33,5 +33,10 @@ RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/
 RUN mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.dist
 COPY apache2.conf /etc/apache2/apache2.conf
 
+# set cronjob
+RUN apt-get install -y cron
+COPY crontab /var/spool/cron/crontabs/
+RUN chmod 0644 /var/spool/cron/crontabs/crontab
+
 EXPOSE 80
 CMD ["apache2-foreground"]
