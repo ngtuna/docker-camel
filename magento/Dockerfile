@@ -7,8 +7,7 @@ RUN apt-get update && apt-get install -y git
 COPY php.ini /usr/local/etc/php/
 
 # download magento2
-RUN git clone https://github.com/magento/magento2.git /var/www/magento2
-COPY auth.json /var/www/magento2/
+RUN git clone -b master https://tuna7_fsoft@bitbucket.org/gkanters/magento.git /var/www/magento2
 
 # enable gd extension
 RUN apt-get install -y libvpx-dev libfreetype6-dev libjpeg62-turbo-dev libpng12-dev
@@ -32,11 +31,6 @@ RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/
 # Add magento2 to httpd.conf
 RUN mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.dist
 COPY apache2.conf /etc/apache2/apache2.conf
-
-# set cronjob
-RUN apt-get install -y cron
-COPY crontab /var/spool/cron/crontabs/
-RUN chmod 0644 /var/spool/cron/crontabs/crontab
 
 EXPOSE 80
 CMD ["apache2-foreground"]
